@@ -18,65 +18,72 @@ const Home: NextPage = () => {
     toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
   }
 
-  const clear = () => {
-    toast.current.clear();
-  }
-
-  const chartData = {
-    labels: ['Pagar', 'Receber', 'Fluxo de Caixa'],
+  const basicData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        data: [300, 50, 100],
-        backgroundColor: [
-          "#42A5F5",
-          "#66BB6A",
-          "#FFA726"
-        ],
-        hoverBackgroundColor: [
-          "#64B5F6",
-          "#81C784",
-          "#FFB74D"
-        ]
+        label: 'Vendas',
+        backgroundColor: '#42A5F5',
+        data: [65, 59, 80, 81, 56, 55, 40]
+      },
+      {
+        label: 'Devoluções',
+        backgroundColor: '#FFA726',
+        data: [28, 48, 40, 19, 86, 27, 90]
       }
     ]
   };
 
-  const lightOptions = {
-    plugins: {
-      legend: {
-        labels: {
-          color: '#495057'
+  const getLightTheme = () => {
+    let basicOptions = {
+      maintainAspectRatio: false,
+      aspectRatio: .8,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#495057'
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#495057'
+          },
+          grid: {
+            color: '#ebedef'
+          }
+        },
+        y: {
+          ticks: {
+            color: '#495057'
+          },
+          grid: {
+            color: '#ebedef'
+          }
         }
       }
+    };
+
+    return {
+      basicOptions
     }
-  };
+  }
+
+  const { basicOptions } = getLightTheme();
 
   return (
     <div>
-      <Button label="Save" />
-
       <div className="card p-d-flex p-jc-center">
-        <Chart
-          type="pie"
-          data={chartData}
-          options={lightOptions}
-          style={{ position: 'relative', width: '40%' }}
-        />
-      </div>
-
-
-      <div>
-        <Toast ref={toast} />
-        <Toast ref={toastBC} position="bottom-center" />
-
-        <div className="card toast-demo">
-          <h5>Severities</h5>
-          <Button label="Success" className="p-button-success" onClick={showSuccess} />
-
-          <h5>Clear</h5>
-          <Button onClick={clear} label="Clear" />
+        <div className="card">
+          <h5>Vertical</h5>
+          <Chart type="bar" data={basicData} options={basicOptions} />
         </div>
       </div>
+
+      <Toast ref={toast} />
+      <Toast ref={toastBC} position="bottom-center" />
+      <Button label="Success" className="p-button-success" onClick={showSuccess} />
     </div>
   )
 }
