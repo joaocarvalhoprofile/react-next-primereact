@@ -1,25 +1,39 @@
-import React, { useRef } from 'react'
 import type { NextPage } from 'next'
 
-import 'primereact/resources/themes/saga-blue/theme.css'
-import 'primereact/resources/primereact.min.css'
-import 'primeicons/primeicons.css'
-import 'primeflex/primeflex.css'
-
-import { Toast } from 'primereact/toast'
-import { Button } from 'primereact/button'
 import { Chart } from 'primereact/chart'
 
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
 
-  const toast = useRef({} as Toast);
-  const toastBC = useRef({} as Toast);
+  const chartData = {
+    labels: ['A', 'B', 'C'],
+    datasets: [
+      {
+        data: [300, 50, 100],
+        backgroundColor: [
+          "#42A5F5",
+          "#66BB6A",
+          "#FFA726"
+        ],
+        hoverBackgroundColor: [
+          "#64B5F6",
+          "#81C784",
+          "#FFB74D"
+        ]
+      }
+    ]
+  };
 
-  const showSuccess = () => {
-    toast.current.show({ severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000 });
-  }
+  const lightOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          color: '#495057'
+        }
+      }
+    }
+  };
 
   const basicData = {
     labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
@@ -76,19 +90,18 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>Dashboard</h1>
       </div>
 
-      <div className={styles.main}>
-        <div className="card">
-          <h5>Vertical</h5>
+      <div className="grid flex-initial">
+        <div className="col-12 md:col-6 lg:col-3 sm:flex-nowrap">
+          <Chart type="pie" data={chartData} options={lightOptions} />
+        </div>
+        <div className="col-12 md:col-6 lg:col-3">
           <Chart type="bar" data={basicData} options={basicOptions} />
         </div>
-
-        <Toast ref={toast} />
-        <Toast ref={toastBC} position="bottom-center" />
-        <Button label="Success" className="p-button-success" onClick={showSuccess} />
+        <div className="col-12 md:col-6 lg:col-3">
+          <Chart type="bar" data={basicData} options={basicOptions} />
+        </div>
       </div>
-
-
-    </div>
+    </div >
   )
 }
 

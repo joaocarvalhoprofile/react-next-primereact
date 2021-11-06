@@ -1,5 +1,7 @@
 .container {
   padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
@@ -13,8 +15,6 @@
 }
 
 .header {
-  position: fixed;
-  width: 100%;
   color: #0070f3;
   background-color: #0070f3;
   height: 50px;
