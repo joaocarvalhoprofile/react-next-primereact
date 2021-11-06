@@ -4,10 +4,13 @@ import type { NextPage } from 'next'
 import 'primereact/resources/themes/saga-blue/theme.css'
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
+import 'primeflex/primeflex.css'
 
-import { Toast } from 'primereact/toast';
+import { Toast } from 'primereact/toast'
 import { Button } from 'primereact/button'
 import { Chart } from 'primereact/chart'
+
+import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
 
@@ -19,17 +22,12 @@ const Home: NextPage = () => {
   }
 
   const basicData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     datasets: [
       {
-        label: 'Vendas',
+        label: 'Vendas 2021',
         backgroundColor: '#42A5F5',
-        data: [65, 59, 80, 81, 56, 55, 40]
-      },
-      {
-        label: 'Devoluções',
-        backgroundColor: '#FFA726',
-        data: [28, 48, 40, 19, 86, 27, 90]
+        data: [65.00, 59.145, 80.15, 81.00, 56.45, 55, 40, 451, 423, 477, 510, 515]
       }
     ]
   };
@@ -74,16 +72,22 @@ const Home: NextPage = () => {
 
   return (
     <div>
-      <div className="card p-d-flex p-jc-center">
+      <div className={styles.header}>
+        <h1 className={styles.title}>Dashboard</h1>
+      </div>
+
+      <div className={styles.main}>
         <div className="card">
           <h5>Vertical</h5>
           <Chart type="bar" data={basicData} options={basicOptions} />
         </div>
+
+        <Toast ref={toast} />
+        <Toast ref={toastBC} position="bottom-center" />
+        <Button label="Success" className="p-button-success" onClick={showSuccess} />
       </div>
 
-      <Toast ref={toast} />
-      <Toast ref={toastBC} position="bottom-center" />
-      <Button label="Success" className="p-button-success" onClick={showSuccess} />
+
     </div>
   )
 }
